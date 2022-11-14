@@ -293,7 +293,7 @@ where
 			}
 		}
 		log::debug!("handle sink");
-		let sink_empty = match self.sink.as_mut().poll_flush(cx) {
+		let sink_empty = stream_eof || match self.sink.as_mut().poll_flush(cx) {
 			Poll::Ready(Ok(())) => true,
 			Poll::Ready(Err(_)) => true,
 			Poll::Pending => false,
